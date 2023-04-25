@@ -1,5 +1,4 @@
-package Objects;
-
+package main;
 public class cart {
     private String[] items;
     private int[] calories, protein, carbs, fats;
@@ -40,13 +39,34 @@ public class cart {
     public void setFats(int[] newFat){
         fats = newFat;
     }
-    public cart(String[] newItems, double[] newPrice, int[] newCal, int[] newPro, int[] newCarbs, int[] newFat){
-        items = newItems;
-        price = newPrice;
-        calories = newCal;
-        protein = newPro;
-        carbs = newCarbs;
-        fats = newFat;
+    public cart(menu menu[]){
+        for (int i = 0; i<menu.length; i++){
+            items[i] = menu[i].getName();
+            price[i] = menu[i].getPrice();
+            calories[i] = menu[i].getCals();
+            protein[i] = menu[i].getProtien();
+            carbs[i] = menu[i].getCarb();
+            fats[i] = menu[i].getCarb();
+        }
+    }
+    public void combineItems(){
+        for (int i = 0; i < items.length; i++) {
+            for (int j = i + 1; j < items.length; j++) {
+                if (items[i].equals(items[j])) {
+                    items[j] = "";
+                    price[i] += price[j];
+                    price[j] = -1;
+                    calories[i] += calories[j];
+                    calories[j] = -1;
+                    protein[i] += protein[j];
+                    protein[j] = -1;
+                    carbs[i] += carbs[j];
+                    carbs[j] = -1;
+                    fats[i] += fats[j];
+                    fats[j] = -1;
+                }
+            }
+        }
     }
     public void sortItemsAlpUp(){ //change the name
         int n = items.length;
@@ -448,8 +468,9 @@ public class cart {
         System.out.println("______________________________________");   
         String temp = "";         
         for (int i = 0; i<items.length;i++){
-            String a = ("|2x Taco"+"|Calories:"+ calories[i]*2 +" |Fats: "+ fats[i]*2 +" |Proteins: "+ protein[i]*2 +" |Carbs: "+ carbs[i]*2 +"|");               
-            temp = temp+" \n"+ a;
+            if (calories[i]>0){
+                temp = temp + "\n" + "";
+            }
         }
         return temp;
     }
