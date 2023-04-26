@@ -13,7 +13,6 @@ public class MexicanCuisineMain {
 		int itemNumber = 0;
 		Menu items[] = new Menu[1000]; // all have price (double), num of items (int), name of item (String)
 		DisplayMenu dispMenu = new DisplayMenu();
-		Cart cart[] = new Cart[1000];
 		
 		// Get items from menu -> save into cart
 		// Menu class is the one who is doing the actual saving
@@ -23,7 +22,7 @@ public class MexicanCuisineMain {
 		System.out.println("located in Albania!");
 		
 		while (menuChoice != 0) {
-			while (menuChoice != 0 && menuChoice != 1 && menuChoice != 2) {
+			while (menuChoice != 0 && menuChoice != 1 && menuChoice != 2 && menuChoice != 3 && menuChoice != 4) {
 				System.out.println("Adults Menu - 1");
 				System.out.println("Kids Menu - 2");
 				System.out.println("Drinks - 3");
@@ -46,7 +45,7 @@ public class MexicanCuisineMain {
 					}
 					System.out.println("How many do you want to purchase?");
 					numOfItems = user_input.nextInt();
-					//items[itemNumber] = new adultMenu(foodChoice, numOfItems); // setting values for the adult item
+					items[itemNumber] = new adultMenu(foodChoice, numOfItems); // setting values for the adult item
 				} else if (menuChoice == 2) {
 					while (foodChoice != 1 && foodChoice != 2 && foodChoice != 3) {
 						System.out.println(dispMenu.dispChildMenu());
@@ -57,7 +56,7 @@ public class MexicanCuisineMain {
 					}
 					System.out.println("How many do you want to purchase?");
 					numOfItems = user_input.nextInt();
-					//items[itemNumber] = new childMenu(foodChoice, numOfItems); // setting values for the child item
+					items[itemNumber] = new childMenu(foodChoice, numOfItems); // setting values for the child item
 				} else if (menuChoice == 3) {
 					while (foodChoice != 1 && foodChoice != 2 && foodChoice != 3) {
 						System.out.println(dispMenu.dispDrinkMenu()); // display class method
@@ -66,14 +65,20 @@ public class MexicanCuisineMain {
 							System.out.println("Please enter the given options.");
 						}
 					}
+					System.out.println("How many do you want to purchase?");
+					numOfItems = user_input.nextInt();
+					items[itemNumber] = new drinkMenu(foodChoice, numOfItems);
 				} else if (menuChoice == 4) {
-					while (foodChoice != 1 && foodChoice != 2 && foodChoice != 3 && foodChoice != 4 && foodChoice != 5) {
+					while (foodChoice != 1 && foodChoice != 2) {
 						System.out.println(dispMenu.dispAlcoholicDrinkMenu()); // display class method
 						foodChoice = user_input.nextInt();
-						if (foodChoice != 1 && foodChoice != 2 && foodChoice != 3 && foodChoice != 4 && foodChoice != 5) {
+						if (foodChoice != 1 && foodChoice != 2) {
 							System.out.println("Please enter the given options.");
 						}
 					}
+					System.out.println("How many do you want to purchase?");
+					numOfItems = user_input.nextInt();
+					items[itemNumber] = new alcoholicDrinksMenu(foodChoice, numOfItems);
 				}
 				
 				menuChoice = -1; // refreshes menuChoice option
@@ -82,6 +87,10 @@ public class MexicanCuisineMain {
 			}
 		}
 		
+		for (int i = 0; i < items.length; i++){
+			System.out.println(items[i].getName());
+		}
+		Cart cart = new Cart(items);
 		// Cart method // pass in Menu array
 		// Display "receipt", ask user to pay, give change... etc
 		
@@ -90,30 +99,31 @@ public class MexicanCuisineMain {
 			System.out.println("Enter selection:"); // may be in the class itself
 			cartOption = user_input.nextInt();
 			if (cartOption == 1) {
-				cart[0].sortItemsPrice();
+				cart.sortItemsPrice();
 			} else if (cartOption == 2) {
-				cart[0].sortItemsReversePrice();
+				cart.sortItemsReversePrice();
 			} else if (cartOption == 3) {
-				cart[0].sortItemsCalories();
+				cart.sortItemsCalories();
 			} else if (cartOption == 4) {
-				cart[0].sortItemsReverseCalories();
+				cart.sortItemsReverseCalories();
 			} else if (cartOption == 5) {
-				cart[0].sortItemsCarbs();
+				cart.sortItemsCarbs();
 			} else if (cartOption == 6) {
-				cart[0].sortItemsReverseCarbs();
+				cart.sortItemsReverseCarbs();
 			} else if (cartOption == 7) {
-				cart[0].sortItemsFats();
+				cart.sortItemsFats();
 			} else if (cartOption == 8) {
-				cart[0].sortItemsReverseFats();
+				cart.sortItemsReverseFats();
 			} else if (cartOption == 9) {
-				cart[0].sortItemsAlpUp();
+				cart.sortItemsAlpUp();
 			} else if (cartOption == 10) {
-				cart[0].sortItemsAlpDown();
+				cart.sortItemsAlpDown();
 			} else if (cartOption == 11) {
-				cart[0].sortItemsProteins();
+				cart.sortItemsProteins();
 			} else if (cartOption == 12) {
-				cart[0].sortItemsReverseProteins();
+				cart.sortItemsReverseProteins();
 			} 
+			System.out.println(cart);
 		}
 		
 		// maybe while loop if user amount is less than amount to pay
